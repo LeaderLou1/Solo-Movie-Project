@@ -35,7 +35,7 @@ const initializeMovieList = () => {
     });
   };
   
-// Function to handle movie title input
+
 // Function to handle movie title input
 const handleTitleInput = (e) => {
     const movieTitleInput = e.target;
