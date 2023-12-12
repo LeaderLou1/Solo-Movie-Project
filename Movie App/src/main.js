@@ -133,5 +133,165 @@ const main = () => {
   
   // Execute the main function
   main();
+  // Add this at the end of your main.js file
+
+// Function to create a bar chart
+window.addEventListener('resize', () => {
+    location.reload()
+})
+const createBarChart = () => {
+    const ctx = document.getElementById('barChart').getContext('2d');
+  
+    // Sort movies by domestic totals in descending order
+    const sortedMovies = data.slice().sort((a, b) => b.domestic - a.domestic);
+  
+    // Extract movie titles and domestic totals for the chart
+    const movieTitles = sortedMovies.map(movie => movie.title);
+    const domesticTotals = sortedMovies.map(movie => movie.domestic);
+  
+    // Create a bar chart
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: movieTitles,
+        datasets: [{
+          label: 'Domestic Totals',
+          data: domesticTotals,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+        }],
+      },
+      options: {
+
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+  };
+  // Function to create a pie chart
+const createPieChart = () => {
+    const ctx = document.getElementById('pieChart').getContext('2d');
+  
+    // Extract genres and calculate the total domestic gross for each genre
+    const genreData = {};
+    data.forEach(movie => {
+        if (movie.genre) {
+            if (!genreData[movie.genre]) {
+                genreData[movie.genre] = 0;
+            }
+            genreData[movie.genre] += movie.domestic;
+        }
+    });
+
+    // Extract labels and data for the pie chart
+    const genreLabels = Object.keys(genreData);
+    const genreValues = Object.values(genreData);
+
+    // Create a pie chart
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: genreLabels,
+            datasets: [{
+                data: genreValues,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                ],
+            }],
+        },
+    });
+};
+// Function to create a scatter plot
+const createScatterPlot = () => {
+    const ctx = document.getElementById('scatterPlot').getContext('2d');
+
+    // Create separate arrays for audience and critic scores
+    const audienceScores = data.map(movie => movie.audienceScore);
+    const criticScores = data.map(movie => movie.criticScore);
+
+    // Create separate datasets for audience and critic scores
+    const audienceDataset = {
+        label: 'Audience Scores',
+        data: data.map(movie => ({ x: movie.criticScore, y: movie.audienceScore })),
+        backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red color for audience scores
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 1,
+        pointRadius: 4,
+    };
+
+    const criticDataset = {
+        label: 'Critic Scores',
+        data: data.map(movie => ({ x: movie.criticScore, y: movie.criticScore })), 
+        backgroundColor: 'rgba(54, 162, 235, 0.8)', // Blue color for critic scores
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1,
+        pointRadius: 4,
+    };
+
+    // Create a scatter plot with both datasets
+    new Chart(ctx, {
+        type: 'scatter',
+        data: {
+            datasets: [audienceDataset, criticDataset],
+        },
+        options: {
+           
+            plugins: {
+                title: {
+                    position: 'left',
+                    display: true,
+                    text: 'Box Office'
+                },
+                
+                
+                legend: {
+                    display: true,
+                },
+                labels: {
+                    font: {
+                        fontColor: 'white'
+                    }
+                }
+            },
+            
+    
+            scales: {
+                x: {
+                    type: 'linear',
+                    position: 'bottom',
+                    min: 20,
+                    max: 100,
+                    ticks: {
+                        stepSize: 10,
+                    },
+                },
+                y: {
+                    type: 'linear',
+                    min: 0,
+                    max: 700,
+                    ticks: {
+                        stepSize: 100,
+                    },
+                },
+            },
+        },
+    });
+};
+
+// Call the createScatterPlot function on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    createBarChart();
+    createPieChart();
+    createScatterPlot();
+});
+
   
 ;

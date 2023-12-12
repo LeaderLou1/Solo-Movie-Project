@@ -9,7 +9,7 @@
 </head>
 
 <body>
-
+<h1 id = "me">Louis's Movie App</h1>
   <div id="app">
     <section class="movies" tabindex="0" aria-label="Movie List">
 
@@ -48,8 +48,18 @@
       <div id="movie-list">
         <!-- List items will be created dynamically -->
       </div>
+    </div>
     </section>
     <button id="reset-button"> Default Movies</button>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <div class = "graph">
+  <canvas id="barChart" ></canvas>
+  </div>
+  <div class = "graph">
+  <canvas id="pieChart" ></canvas>
+  </div>
+  <div class = "graph">
+  <canvas id="scatterPlot" ></canvas>
   </div>
   <script type="module" src="src/main.js"></script>
 </body>
