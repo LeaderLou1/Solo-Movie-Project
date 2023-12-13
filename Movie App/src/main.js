@@ -243,28 +243,13 @@ const createScatterPlot = () => {
             datasets: [audienceDataset, criticDataset],
         },
         options: {
-           
-            plugins: {
-                title: {
-                    position: 'left',
-                    display: true,
-                    text: 'Box Office'
-                },
-                
-                
-                legend: {
-                    display: true,
-                },
-                labels: {
-                    font: {
-                        fontColor: 'white'
-                    }
-                }
-            },
-            
     
             scales: {
                 x: {
+                    title:{
+                        display:true,
+                        text: "Rotten Tomatoes Score",
+                    },
                     type: 'linear',
                     position: 'bottom',
                     min: 20,
@@ -274,6 +259,10 @@ const createScatterPlot = () => {
                     },
                 },
                 y: {
+                    title:{
+                        display:true,
+                        text: "Box Office",
+                    },
                     type: 'linear',
                     min: 0,
                     max: 700,
